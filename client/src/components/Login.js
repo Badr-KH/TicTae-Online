@@ -1,4 +1,5 @@
 import React from "react";
+import Facebook from "./Facebook";
 class Login extends React.Component {
   render() {
     return (
@@ -6,11 +7,11 @@ class Login extends React.Component {
         <h4>Sign-in with the form below or connect with facebook !</h4>
         <form>
           <div className="form-group">
-            <label htmlFor="username">Username : </label>
+            <label htmlFor="email">Email : </label>
             <input
               type="email"
               className="form-control"
-              id="username"
+              id="email"
               aria-describedby="emailHelp"
             />
           </div>
@@ -37,9 +38,7 @@ class Login extends React.Component {
             <button type="button" className="btn btn-outline-primary btn-lg">
               Sign-in !
             </button>
-            <button type="button" className="btn btn-primary btn-lg">
-              Connect with facebook !
-            </button>
+            <Facebook />
           </div>
         </form>
       </div>
