@@ -1,0 +1,94 @@
+.mainDiv {
+  height: 100vh;
+  width: 80%;
+  margin: 0 auto;
+}
+.logginDiv {
+  border: none;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.descDiv h2 {
+  text-align: center;
+}
+.descDiv p {
+  margin-top: 20px;
+  text-align: justify;
+}
+.descDiv img {
+  width: 100%;
+}
+.loginForm {
+  padding-left: 10px;
+}
+.loginForm h4 {
+  text-align: center;
+}
+.buttons button {
+  width: 100%;
+  margin-bottom: 10px;
+}
+.buttons span {
+  display: none;
+}
+.loginForm h5 {
+  text-align: center;
+}
+.buttonlink {
+  background: none;
+  border: none;
+  color: #0398fc;
+  outline: none;
+}
+.buttonlink:hover {
+  text-decoration: underline;
+  color: deepskyblue;
+}
+.buttonlink:focus {
+  outline: none;
+}
+@media only screen and (min-width: 1070px) {
+  .mainDiv {
+    height: 100vh;
+    width: 70%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+  }
+  .logginDiv {
+    border: 2px solid purple;
+    padding: 20px;
+    border-radius: 20px;
+    display: flex;
+  }
+  .descDiv {
+    border-right: 2px solid lightcoral;
+    padding-right: 10px;
+    flex: 2;
+  }
+  .descDiv h2 {
+    text-align: center;
+  }
+  .descDiv p {
+    margin-top: 20px;
+    text-align: justify;
+  }
+  .loginForm {
+    padding-left: 10px;
+    flex: 2;
+  }
+  .loginForm h4 {
+    text-align: center;
+  }
+  .buttons {
+    display: flex;
+    flex-direction: column;
+  }
+  .buttons button {
+    flex: 1;
+  }
+  .loginForm h5 {
+    text-align: center;
+  }
+}
