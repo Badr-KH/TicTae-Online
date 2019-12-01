@@ -2,10 +2,11 @@ import React from "react";
 import "../styles/auth.css";
 import Login from "../components/Login";
 import Signup from "../components/Signup";
+import Username from "../components/Username";
 class Authentication extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { page: "login" };
+    this.state = { page: "login", userLogin: {} };
   }
   render() {
     return (
@@ -24,7 +25,12 @@ class Authentication extends React.Component {
             />
           </div>
           {this.state.page === "login" ? (
-            <Login page={page => this.setState({ page })} />
+            <Login
+              page={page => this.setState({ page })}
+              login={login => this.setState({ userLogin: login })}
+            />
+          ) : this.state.page === "username" ? (
+            <Username userLogin={this.state.userLogin} />
           ) : (
             <Signup page={page => this.setState({ page })} />
           )}

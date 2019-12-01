@@ -8,4 +8,4 @@ const game = new Schema({
   gameDuration: { type: Number, default: 0 }
 });
 
-module.exports = game;
+module.exports = mongoose.model("Game", game);

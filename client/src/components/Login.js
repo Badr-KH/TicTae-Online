@@ -38,7 +38,10 @@ class Login extends React.Component {
             <button type="button" className="btn btn-outline-primary btn-lg">
               Sign-in !
             </button>
-            <Facebook />
+            <Facebook
+              page={page => this.props.page(page)}
+              login={login => this.props.login(login)}
+            />
           </div>
         </form>
       </div>

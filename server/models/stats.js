@@ -8,4 +8,4 @@ const stats = new Schema({
   averageGameDuration: { type: Number, default: 0 }
 });
 
-module.exports = stats;
+module.exports = mongoose.model("Stats", stats);

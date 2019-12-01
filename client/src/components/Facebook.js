@@ -2,7 +2,22 @@ import React, { Component } from "react";
 import FacebookLogin from "react-facebook-login";
 class Facebook extends Component {
   responseFacebook = res => {
-    console.log(res);
+    if (!res.status) {
+      fetch("/login/facebook", {
+        method: "post",
+        body: JSON.stringify({ id: res.id }),
+        headers: new Headers({ "content-type": "application/json" })
+      })
+        .then(res => res.json())
+        .then(res => {
+          if (res.error) {
+            this.props.login(res);
+            this.props.page("username");
+            return;
+          }
+          console.log(res);
+        });
+    }
   };
   render() {
     return (
