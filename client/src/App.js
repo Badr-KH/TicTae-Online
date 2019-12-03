@@ -1,11 +1,16 @@
 import React from "react";
-import Authentication from "./pages/Authentication";
-import { Route, BrowserRouter } from "react-router-dom";
+import Auth from "./pages/Authenticated";
+import Dashboard from "./pages/Dashboard";
+import Play from "./pages/Play";
+import { BrowserRouter, Switch } from "react-router-dom";
 class App extends React.Component {
   render() {
     return (
       <BrowserRouter>
-        <Route path="/" component={Authentication} />
+        <Switch>
+          <Auth exact path="/" component={Dashboard} />
+          <Auth exact path="/play" component={Play} />
+        </Switch>
       </BrowserRouter>
     );
   }

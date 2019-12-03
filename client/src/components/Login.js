@@ -1,11 +1,33 @@
 import React from "react";
 import Facebook from "./Facebook";
 class Login extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: "",
+      password: ""
+    };
+  }
+  onSubmitForm = e => {
+    e.preventDefault();
+    fetch("/login", {
+      method: "post",
+      body: JSON.stringify({
+        email: this.state.email,
+        password: this.state.password
+      }),
+      headers: new Headers({ "content-type": "application/json" })
+    })
+      .then(res => res.json())
+      .then(res => {
+        if (res.success) this.props.history.push("/");
+      });
+  };
   render() {
     return (
       <div className="loginForm">
         <h4>Sign-in with the form below or connect with facebook !</h4>
-        <form>
+        <form onSubmit={e => this.onSubmitForm(e)}>
           <div className="form-group">
             <label htmlFor="email">Email : </label>
             <input
@@ -13,6 +35,9 @@ class Login extends React.Component {
               className="form-control"
               id="email"
               aria-describedby="emailHelp"
+              required
+              value={this.state.email}
+              onChange={e => this.setState({ email: e.target.value })}
             />
           </div>
           <div className="form-group">
@@ -22,6 +47,9 @@ class Login extends React.Component {
               className="form-control"
               id="password"
               aria-describedby="emailHelp"
+              required
+              value={this.state.password}
+              onChange={e => this.setState({ password: e.target.value })}
             />
           </div>
           <h5>
@@ -35,7 +63,7 @@ class Login extends React.Component {
             </button>
           </h5>
           <div className="buttons">
-            <button type="button" className="btn btn-outline-primary btn-lg">
+            <button type="submit" className="btn btn-outline-primary btn-lg">
               Sign-in !
             </button>
             <Facebook

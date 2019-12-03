@@ -1,0 +1,74 @@
+.main {
+  width: 80;
+  margin: 0 auto;
+}
+.center {
+  text-align: center;
+  margin-top: 20px;
+}
+.spinner {
+  animation: rotate 2s linear infinite;
+  color: black;
+  width: 50px;
+  height: 50px;
+}
+
+.spinner .path {
+  stroke: rgb(0, 0, 0);
+  stroke-linecap: round;
+  animation: dash 1.5s ease-in-out infinite;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 150;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -35;
+  }
+  100% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -124;
+  }
+}
+.gameHolder {
+  width: 90%;
+  margin: 0 auto;
+  border: 1px solid black;
+  border-radius: 20px;
+}
+.element {
+  height: 100px;
+  flex: 1;
+  border-right: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 40px;
+  font-weight: bold;
+}
+.element:last-child {
+  border-right: none;
+}
+.row {
+  width: 100%;
+  margin: 0;
+  border-bottom: 1px solid black;
+  display: flex;
+}
+.row:last-child {
+  border-bottom: none;
+}
+@media only screen and (min-width: 800px) {
+  .gameHolder {
+    width: 40%;
+  }
+}

@@ -23,7 +23,9 @@ router.post("/", (req, res) => {
           .send({ error: err })
           .end();
 
-      const token = jwt.sign(document.toObject(), process.env.tokenSecret);
+      const token = jwt.sign(document.toObject(), process.env.tokenSecret, {
+        expiresIn: "1d"
+      });
       res.send({ accessToken: token });
     });
   });
@@ -39,7 +41,9 @@ router.post("/facebook", (req, res) => {
         .status(400)
         .send({ error: err })
         .end();
-    const token = jwt.sign(document.toObject(), process.env.tokenSecret);
+    const token = jwt.sign(document.toObject(), process.env.tokenSecret, {
+      expiresIn: "1d"
+    });
     res.send({ accessToken: token });
   });
 });

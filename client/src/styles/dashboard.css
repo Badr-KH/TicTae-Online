@@ -1,0 +1,30 @@
+.main {
+  width: 80%;
+  margin: 30px auto;
+}
+.stats {
+  border: 1px solid black;
+  width: 100%;
+  margin: 20px auto;
+  border-radius: 5px;
+}
+.stat {
+  display: flex;
+}
+.stat h6 {
+  font-weight: bold;
+  flex: 3;
+  border-right: 1px solid black;
+  margin-bottom: 0;
+  padding: 10px;
+}
+.stat span {
+  flex: 2;
+  padding: 10px;
+}
+.stats div {
+  border-bottom: 1px solid black;
+}
+.stats:last-child {
+  border-bottom: none;
+}

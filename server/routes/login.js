@@ -13,9 +13,12 @@ router.post("/", (req, res) => {
         if (bcrypt.compareSync(req.body.password, document.password)) {
           const token = jwt.sign(
             document.profile.toObject(),
-            process.env.tokenSecret
+            process.env.tokenSecret,
+            { expiresIn: "1d" }
           );
-          return res.send({ accessToken: token });
+          return res
+            .cookie("accessToken", token, { httpOnly: true })
+            .send({ success: true });
         }
       }
       res
@@ -26,8 +29,12 @@ router.post("/", (req, res) => {
 router.post("/facebook", (req, res) => {
   Profile.findOne({ facebookId: req.body.id }).then(document => {
     if (document) {
-      const token = jwt.sign(document.toObject(), process.env.tokenSecret);
-      res.send({ accessToken: token });
+      const token = jwt.sign(document.toObject(), process.env.tokenSecret, {
+        expiresIn: "1d"
+      });
+      res
+        .cookie("accessToken", token, { httpOnly: true })
+        .send({ success: true });
       return;
     }
     res.status(404).send({ error: "Not found" });
