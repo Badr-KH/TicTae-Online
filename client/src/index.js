@@ -4,5 +4,10 @@ import "./styles/index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap";
 import App from "./App";
-
-ReactDOM.render(<App />, document.getElementById("root"));
+import { SnackbarProvider } from "notistack";
+ReactDOM.render(
+  <SnackbarProvider maxSnack={1}>
+    <App />
+  </SnackbarProvider>,
+  document.getElementById("root")
+);

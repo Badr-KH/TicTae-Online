@@ -6,31 +6,43 @@ const Profile = require("../models/profile");
 const router = express.Router();
 
 router.post("/", (req, res) => {
-  new Profile({ username: req.body.username }).save((err, document) => {
+  console.log(req.body);
+  const userProfile = new Profile({ username: req.body.username });
+  new User({
+    profile: userProfile.id,
+    email: req.body.email,
+    password: bcrypt.hashSync(req.body.password, 10)
+  }).save((err, user) => {
     if (err)
       return res
         .status(400)
-        .send({ error: err })
+        .json({
+          error:
+            "The email entered is invalid or already registered. Please try again !"
+        })
         .end();
-    new User({
-      profile: document.id,
-      email: req.body.email,
-      password: bcrypt.hashSync(req.body.password, 10)
-    }).save(err => {
-      if (err)
+    userProfile.save((err, document) => {
+      if (err) {
+        User.findOneAndDelete({ email: user.email }).exec();
         return res
           .status(400)
-          .send({ error: err })
+          .json({
+            error:
+              "The username that you entered is already registered. Please try again !"
+          })
           .end();
+      }
 
       const token = jwt.sign(document.toObject(), process.env.tokenSecret, {
         expiresIn: "1d"
       });
-      res.send({ accessToken: token });
+      res.cookie("accessToken", token, { httpOnly: true });
+      res.send({ succes: true });
     });
   });
 });
 router.post("/facebook", (req, res) => {
+  console.log(req.body);
   new Profile({
     username: req.body.username,
     facebookId: req.body.id,
@@ -39,12 +51,16 @@ router.post("/facebook", (req, res) => {
     if (err)
       return res
         .status(400)
-        .send({ error: err })
+        .send({
+          error:
+            "The username you entered is already registered ! Please try again."
+        })
         .end();
     const token = jwt.sign(document.toObject(), process.env.tokenSecret, {
       expiresIn: "1d"
     });
-    res.send({ accessToken: token });
+    res.cookie("accessToken", token, { httpOnly: true });
+    res.send({ success: true });
   });
 });
 module.exports = router;

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "../styles/navbar.css";
+import { Link } from "react-router-dom";
 class Navbar extends Component {
   render() {
     return (
@@ -18,21 +19,25 @@ class Navbar extends Component {
 
         <div className="collapse navbar-collapse" id="navbarCollapse">
           <div className="navbar-nav">
-            <a href="/play" className="nav-item nav-link">
-              Play a game !
-            </a>
-            <a href="/" className="nav-item nav-link">
-              Profile
-            </a>
-            <a href="/" className="nav-item nav-link">
+            <Link to="/play" className="nav-item nav-link">
+              Play a game
+            </Link>
+            <Link to="/history" className="nav-item nav-link">
               Game History
-            </a>
-            <a href="/" className="nav-item nav-link">
+            </Link>
+            <Link to="/leaderboard" className="nav-item nav-link">
               Leaderboard
-            </a>
-            <a href="/" className="nav-item nav-link">
+            </Link>
+            <Link
+              to="/logout"
+              className="nav-item nav-link"
+              onClick={e => {
+                e.preventDefault();
+                fetch(`/logout`).then(() => this.props.callBack(true));
+              }}
+            >
               Log-out !
-            </a>
+            </Link>
           </div>
         </div>
       </nav>

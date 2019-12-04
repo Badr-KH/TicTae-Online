@@ -12,44 +12,56 @@ class Game extends Component {
 
   componentDidMount() {
     this.props.socket.emit("readytostart");
+    const yourFunc = () =>
+      this.countDown({
+        text: `It's your turn to play : ${this.state.countdown}`,
+        color: null,
+        matching: false
+      });
+    const opponentFunc = () =>
+      this.countDown({
+        text: `It's your opponent's turn to play : ${this.state.countdown}`,
+        color: null,
+        matching: false
+      });
     this.props.socket.on("start", () => {
       if (this.props.isX) {
         this.setState({ myTurn: true });
-        this.interval = setInterval(
-          () =>
-            this.countDown(`It's your turn to play : ${this.state.countdown}`),
-          1000
-        );
+        this.interval = setInterval(yourFunc, 1000);
+        yourFunc();
         return;
       }
-      this.interval = setInterval(
-        () =>
-          this.countDown(
-            `It's your opponent's turn to play : ${this.state.countdown}`
-          ),
-        1000
-      );
+      this.interval = setInterval(opponentFunc, 1000);
+      opponentFunc();
     });
     this.props.socket.on("turnplayed", data => {
-      console.log(data);
       clearInterval(this.interval);
       this.setState({ board: data.board, myTurn: true, countdown: 30 });
-      this.interval = setInterval(
-        () =>
-          this.countDown(`It's your turn to play : ${this.state.countdown}`),
-        1000
-      );
+      yourFunc();
+      this.interval = setInterval(yourFunc, 1000);
     });
     this.props.socket.on("opponentsturn", () => {
       this.setState({ countdown: 30 });
       clearInterval(this.interval);
+      opponentFunc();
       this.interval = setInterval(
         () =>
-          this.countDown(
-            `It's your opponent's turn to play : ${this.state.countdown}`
-          ),
+          this.countDown({
+            text: `It's your opponent's turn to play : ${this.state.countdown}`,
+            color: null,
+            matching: false
+          }),
         1000
       );
+    });
+    this.props.socket.on("end", data => {
+      clearInterval(this.interval);
+      this.props.message({
+        text: data.message,
+        color: data.color,
+        matching: false
+      });
+      setTimeout(() => this.props.history.push("profile"), 2000);
     });
   }
   countDown(message) {
@@ -57,6 +69,12 @@ class Game extends Component {
       this.props.message(message);
       this.setState({ countdown: this.state.countdown - 1 });
     }
+  }
+  componentWillUnmount() {
+    this.props.socket.off("start");
+    this.props.socket.off("turnplayed");
+    this.props.socket.off("opponentsturn");
+    this.props.socket.off("end");
   }
   squareClicked(index) {
     if (this.state.myTurn) {

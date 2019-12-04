@@ -1,4 +1,5 @@
 import React from "react";
+import { withSnackbar } from "notistack";
 class Username extends React.Component {
   constructor(props) {
     super(props);
@@ -15,7 +16,13 @@ class Username extends React.Component {
       headers: new Headers({ "content-type": "application/json" })
     })
       .then(res => res.json())
-      .then(res => console.log(res));
+      .then(res => {
+        if (res.error) {
+          this.props.enqueueSnackbar(res.error, { variant: "error" });
+          return;
+        }
+        this.props.callBack(true);
+      });
   };
   render() {
     return (
@@ -44,4 +51,4 @@ class Username extends React.Component {
     );
   }
 }
-export default Username;
+export default withSnackbar(Username);

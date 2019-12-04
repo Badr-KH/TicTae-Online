@@ -28,12 +28,21 @@ class Authentication extends React.Component {
             <Login
               page={page => this.setState({ page })}
               login={login => this.setState({ userLogin: login })}
-              {...this.props}
+              history={this.props.history}
+              callBack={this.props.callBack}
             />
           ) : this.state.page === "username" ? (
-            <Username userLogin={this.state.userLogin} />
+            <Username
+              userLogin={this.state.userLogin}
+              history={this.props.history}
+              callBack={this.props.callBack}
+            />
           ) : (
-            <Signup page={page => this.setState({ page })} />
+            <Signup
+              page={page => this.setState({ page })}
+              history={this.props.history}
+              callBack={this.props.callBack}
+            />
           )}
         </div>
       </div>

@@ -8,6 +8,7 @@ class App extends React.Component {
     return (
       <BrowserRouter>
         <Switch>
+          <Auth exact path="/profile" component={Dashboard} />
           <Auth exact path="/" component={Dashboard} />
           <Auth exact path="/play" component={Play} />
         </Switch>

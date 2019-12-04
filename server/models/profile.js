@@ -3,8 +3,8 @@ const Stats = require("./stats");
 const Schema = mongoose.Schema;
 
 const profile = new Schema({
-  username: { type: String, required: true, unique: true },
-  facebookId: { type: String, unique: true, default: "" },
+  username: { type: String, required: true, unique: true, lowercase: true },
+  facebookId: { type: String, unique: true, default: null },
   photoUrl: {
     type: String,
     default:

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import FacebookLogin from "react-facebook-login";
+import { withSnackbar } from "notistack";
 class Facebook extends Component {
   responseFacebook = res => {
     if (!res.status) {
@@ -8,14 +9,18 @@ class Facebook extends Component {
         body: JSON.stringify({ id: res.id }),
         headers: new Headers({ "content-type": "application/json" })
       })
-        .then(res => res.json())
-        .then(res => {
-          if (res.error) {
+        .then(result => result.json())
+        .then(result => {
+          console.log(res);
+          if (result.error) {
             this.props.login(res);
             this.props.page("username");
             return;
           }
-          console.log(res);
+          this.props.enqueueSnackbar("Successfully logged in with facebook !", {
+            variant: "success"
+          });
+          this.props.callBack(true);
         });
     }
   };
@@ -36,4 +41,4 @@ class Facebook extends Component {
   }
 }
 
-export default Facebook;
+export default withSnackbar(Facebook);

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import NavBar from "../components/Navbar";
 import Game from "../components/Game";
 import "../styles/play.css";
 class Play extends Component {
@@ -9,7 +8,11 @@ class Play extends Component {
       roomId: null,
       isX: null,
       opponent: null,
-      message: null,
+      message: {
+        text: `Hang on , ${this.props.user.username} we looking for an opponent for you !`,
+        color: null,
+        matching: true
+      },
       countdown: 5
     };
   }
@@ -22,7 +25,11 @@ class Play extends Component {
   start(data) {
     if (this.state.countdown > 0)
       return this.setState({
-        message: `Opponent found you will start in : ${this.state.countdown}`,
+        message: {
+          text: `Opponent found you will start in : ${this.state.countdown}`,
+          color: null,
+          matching: false
+        },
         countdown: this.state.countdown - 1
       });
     clearInterval(this.interval);
@@ -31,7 +38,11 @@ class Play extends Component {
       roomId,
       opponent,
       isX,
-      message: "Waiting for your opponent to be ready"
+      message: {
+        text: "Waiting for your opponent to be ready",
+        color: null,
+        matching: false
+      }
     });
   }
   componentWillUnmount() {
@@ -40,17 +51,13 @@ class Play extends Component {
   render() {
     return (
       <div>
-        <div>
-          <NavBar />
-        </div>
         <div className="center">
-          <h2>
-            {this.state.message
-              ? this.state.message
-              : `Hang on, ${this.props.user.username} we are looking for an opponent
-            for you !`}
-          </h2>
-          {!this.state.message && (
+          {this.state.message.text && (
+            <h2 style={{ color: this.state.message.color }}>
+              {this.state.message.text}
+            </h2>
+          )}
+          {this.state.message.matching && (
             <svg className="spinner" viewBox="0 0 50 50">
               <circle
                 className="path"
@@ -70,6 +77,7 @@ class Play extends Component {
             opponent={this.state.opponent}
             socket={this.props.socket}
             message={message => this.setState({ message })}
+            history={this.props.history}
           />
         )}
       </div>

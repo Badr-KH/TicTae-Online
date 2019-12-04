@@ -1,5 +1,6 @@
 import React from "react";
 import Facebook from "./Facebook";
+import { withSnackbar } from "notistack";
 class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -20,7 +21,18 @@ class Login extends React.Component {
     })
       .then(res => res.json())
       .then(res => {
-        if (res.success) this.props.history.push("/");
+        if (res.success) {
+          this.props.history.push("/profile");
+          this.props.enqueueSnackbar("Login Successful !", {
+            variant: "success"
+          });
+          this.props.callBack(true);
+          return;
+        }
+        this.props.enqueueSnackbar(
+          "The Email/Password combination is incorrect !",
+          { variant: "error" }
+        );
       });
   };
   render() {
@@ -69,6 +81,8 @@ class Login extends React.Component {
             <Facebook
               page={page => this.props.page(page)}
               login={login => this.props.login(login)}
+              history={this.props.history}
+              callBack={this.props.callBack}
             />
           </div>
         </form>
@@ -76,4 +90,4 @@ class Login extends React.Component {
     );
   }
 }
-export default Login;
+export default withSnackbar(Login);
