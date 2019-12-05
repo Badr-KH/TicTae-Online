@@ -9,8 +9,9 @@ const cookieparser = require("cookie-parser");
 const secureMiddleware = require("./middlewares/protectedRoute");
 const stats = require("./routes/stats");
 const logout = require("./routes/logout");
+const path = require("path");
 mongoose
-  .connect("mongodb://localhost:27017/tictactoe", {
+  .connect(process.env.connectionString, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
@@ -31,4 +32,11 @@ app.use(secureMiddleware);
 app.use("/profile", profile);
 app.use("/logout", logout);
 app.use("/stats", stats);
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+  });
+}
 module.exports = app;

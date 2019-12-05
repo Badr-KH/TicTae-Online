@@ -6,6 +6,7 @@ import GameHistory from "./pages/GameHistory";
 import LeaderBoard from "./pages/Leaderboard";
 import { BrowserRouter, Switch } from "react-router-dom";
 import auth from "./utils/isAuthenticated";
+import Privacy from "./pages/Privacy";
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -26,6 +27,7 @@ class App extends React.Component {
             <Auth exact path="/play" component={Play} />
             <Auth exact path="/history" component={GameHistory} />
             <Auth exact path="/leaderboard" component={LeaderBoard} />
+            <Auth exact path="/privacy" component={Privacy} />
           </Switch>
         )}
       </BrowserRouter>
