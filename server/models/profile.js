@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const profile = new Schema({
   username: { type: String, required: true, unique: true, lowercase: true },
-  facebookId: { type: String, unique: true, default: null },
+  facebookId: { type: String },
   photoUrl: {
     type: String,
     default:
@@ -15,7 +15,6 @@ const profile = new Schema({
     ref: "Stats",
     default: () => {
       const statsobject = new Stats();
-      statsobject.save();
       return statsobject.id;
     }
   },

@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 const User = require("../models/user");
 const Profile = require("../models/profile");
 const router = express.Router();
-
+const Stats = require("../models/stats");
 router.post("/", (req, res) => {
   console.log(req.body);
   const userProfile = new Profile({ username: req.body.username });
@@ -28,16 +28,16 @@ router.post("/", (req, res) => {
           .status(400)
           .json({
             error:
-              "The username that you entered is already registered. Please try again !"
+              "The username you entered is already registered ! Please try again."
           })
           .end();
       }
-
+      Stats.create({ _id: document.stats });
       const token = jwt.sign(document.toObject(), process.env.tokenSecret, {
         expiresIn: "1d"
       });
       res.cookie("accessToken", token, { httpOnly: true });
-      res.send({ succes: true });
+      res.send({ success: true });
     });
   });
 });
@@ -56,6 +56,7 @@ router.post("/facebook", (req, res) => {
             "The username you entered is already registered ! Please try again."
         })
         .end();
+    Stats.create({ _id: document.stats });
     const token = jwt.sign(document.toObject(), process.env.tokenSecret, {
       expiresIn: "1d"
     });

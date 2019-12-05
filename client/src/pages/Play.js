@@ -22,6 +22,7 @@ class Play extends Component {
       this.interval = setInterval(() => this.start(data), 1000);
     });
   }
+
   start(data) {
     if (this.state.countdown > 0)
       return this.setState({
@@ -47,6 +48,7 @@ class Play extends Component {
   }
   componentWillUnmount() {
     this.props.socket.emit("unready");
+    this.props.socket.off("foundMatch");
   }
   render() {
     return (

@@ -20,7 +20,9 @@ class Facebook extends Component {
           this.props.enqueueSnackbar("Successfully logged in with facebook !", {
             variant: "success"
           });
-          this.props.callBack(true);
+          this.props.auth.authenticate().then(() => {
+            this.props.history.push("/");
+          });
         });
     }
   };

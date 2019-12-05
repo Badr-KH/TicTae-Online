@@ -71,13 +71,15 @@ class Game extends Component {
     }
   }
   componentWillUnmount() {
+    clearInterval(this.interval);
     this.props.socket.off("start");
     this.props.socket.off("turnplayed");
     this.props.socket.off("opponentsturn");
     this.props.socket.off("end");
+    this.props.socket.off("start");
   }
   squareClicked(index) {
-    if (this.state.myTurn) {
+    if (this.state.myTurn && !this.state.board[index]) {
       const boardcopy = [...this.state.board];
       if (!boardcopy[index]) boardcopy[index] = this.props.isX ? "X" : "O";
       this.setState({ board: boardcopy, myTurn: false });

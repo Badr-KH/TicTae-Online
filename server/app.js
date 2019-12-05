@@ -25,9 +25,10 @@ mongoose
 app.use(cookieparser());
 app.use(express.json());
 app.use(morgan("dev"));
-app.use("/profile", secureMiddleware, profile);
 app.use("/signup", signup);
 app.use("/login", login);
-app.use("/logout", secureMiddleware, logout);
-app.use("/stats", secureMiddleware, stats);
+app.use(secureMiddleware);
+app.use("/profile", profile);
+app.use("/logout", logout);
+app.use("/stats", stats);
 module.exports = app;

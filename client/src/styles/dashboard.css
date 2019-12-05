@@ -28,3 +28,24 @@
 .stats:last-child {
   border-bottom: none;
 }
+table {
+  width: 100%;
+  border-radius: 20px;
+}
+table tr * {
+  text-align: center;
+  padding: 10px;
+}
+.buttonlink {
+  background: none;
+  border: none;
+  color: #0398fc;
+  outline: none;
+}
+.buttonlink:hover {
+  text-decoration: underline;
+  color: deepskyblue;
+}
+.buttonlink:focus {
+  outline: none;
+}

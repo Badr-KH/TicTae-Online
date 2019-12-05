@@ -1,5 +1,6 @@
 import React from "react";
 import { withSnackbar } from "notistack";
+import auth from "../utils/isAuthenticated";
 class Username extends React.Component {
   constructor(props) {
     super(props);
@@ -21,7 +22,9 @@ class Username extends React.Component {
           this.props.enqueueSnackbar(res.error, { variant: "error" });
           return;
         }
-        this.props.callBack(true);
+        auth.authenticate().then(() => {
+          this.props.history.push("/");
+        });
       });
   };
   render() {

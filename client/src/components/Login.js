@@ -1,6 +1,8 @@
 import React from "react";
 import Facebook from "./Facebook";
 import { withSnackbar } from "notistack";
+import auth from "../utils/isAuthenticated";
+import { Link } from "react-router-dom";
 class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -26,7 +28,9 @@ class Login extends React.Component {
           this.props.enqueueSnackbar("Login Successful !", {
             variant: "success"
           });
-          this.props.callBack(true);
+          auth.authenticate().then(() => {
+            this.props.history.push("/");
+          });
           return;
         }
         this.props.enqueueSnackbar(
@@ -83,9 +87,15 @@ class Login extends React.Component {
               login={login => this.props.login(login)}
               history={this.props.history}
               callBack={this.props.callBack}
+              auth={auth}
             />
           </div>
         </form>
+        <h5>
+          By signing up, you accept our{" "}
+          <Link to="/privacy">privacy policy </Link>
+          agreement !
+        </h5>
       </div>
     );
   }

@@ -4,3 +4,8 @@
   box-sizing: border-box;
   font-family: "Lato";
 }
+body {
+  position: relative;
+  min-height: 100vh;
+  padding-bottom: 55px;
+}

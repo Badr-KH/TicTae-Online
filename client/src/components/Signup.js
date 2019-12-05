@@ -1,5 +1,7 @@
 import React from "react";
 import { withSnackbar } from "notistack";
+import auth from "../utils/isAuthenticated";
+import { Link } from "react-router-dom";
 class Signup extends React.Component {
   constructor(props) {
     super(props);
@@ -28,7 +30,12 @@ class Signup extends React.Component {
           this.props.enqueueSnackbar(res.error, { variant: "error" });
           return;
         }
-        this.props.callBack(true);
+        this.props.enqueueSnackbar("Registration Successful", {
+          variant: "success"
+        });
+        auth.authenticate().then(() => {
+          this.props.history.push("/");
+        });
       });
   };
   render() {
@@ -85,6 +92,11 @@ class Signup extends React.Component {
             </button>
           </div>
         </form>
+        <h5>
+          By signing up, you accept our{" "}
+          <Link to="/privacy">privacy policy </Link>
+          agreement !
+        </h5>
       </div>
     );
   }

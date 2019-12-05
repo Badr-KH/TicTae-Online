@@ -1,5 +1,6 @@
 const Game = require("../models/game");
 const Stats = require("../models/stats");
+const Profile = require("../models/profile");
 class Board {
   constructor() {
     this.board = Array(9).fill(null);
@@ -39,15 +40,15 @@ class Board {
    * @param {SocketIO.Socket} winner
    * @param {SocketIO.Socket} loser
    */
-  delegateWinner(winner, loser) {
+  delegateWinner(winner, loser, roomname) {
     this.end = Date.now();
     Stats.findOneAndUpdate(
       { _id: winner.identity.stats },
-      { $inc: { gamesPlayed: 1, gamesWon: 1 } }
+      { $inc: { gamesPlayed: 1, gamesWon: 1, score: 30 } }
     ).exec();
     Stats.findOneAndUpdate(
       { _id: loser.identity.stats },
-      { $inc: { gamesPlayed: 1, gamesLost: 1 } }
+      { $inc: { gamesPlayed: 1, gamesLost: 1, score: -15 } }
     ).exec();
     Game.create({
       players: [winner.identity._id, loser.identity._id],
@@ -62,6 +63,7 @@ class Board {
       message: "You lost, you can try again next time !",
       color: "red"
     });
+    this.leaveRoom(winner, loser, roomname);
   }
   drawSave(player1, player2) {
     this.end = Date.now();
@@ -75,6 +77,21 @@ class Board {
       players: [player1.identity._id, player2.identity._id],
       winner: null,
       gameDuration: this.end - this.start
+    });
+  }
+  leaveRoom(player1, player2, roomname) {
+    this.cancelEvents([player1, player2], roomname);
+  }
+  /**
+   *
+   * @param {[SocketIO.Socket]} sockets
+   */
+  cancelEvents(sockets, roomname) {
+    sockets.forEach(socket => {
+      socket.leave(roomname);
+      socket.off("playturn", socket.listeners("playturn")[0]);
+      socket.off("readytostart", socket.listeners("readytostart")[0]);
+      socket.off("premleave", socket.listeners("premleave")[0]);
     });
   }
 }

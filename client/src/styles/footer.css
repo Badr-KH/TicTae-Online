@@ -1,0 +1,21 @@
+footer {
+  position: absolute;
+  bottom: 0;
+  height: 50px;
+  width: 100%;
+  background-color: teal;
+}
+ul {
+  margin: 0;
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+}
+ul li a {
+  color: white;
+}
+ul li a:hover {
+  color: red;
+}

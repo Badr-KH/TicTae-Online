@@ -40,6 +40,10 @@ class Dashboard extends Component {
                   <span>{this.state.stats.draws}</span>
                 </div>
                 <div className="stat">
+                  <h6>Score</h6>
+                  <span>{this.state.stats.score} Pt(s)</span>
+                </div>
+                <div className="stat">
                   <h6>Ratio (W/D/L)</h6>
                   <span>
                     {this.state.stats.gamesPlayed > 0

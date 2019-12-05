@@ -1,5 +1,22 @@
-export default async function isAuthenticated() {
-  const auth = await fetch("/profile");
-  const result = await auth.json();
-  return result;
-}
+import io from "socket.io-client";
+const auth = {
+  isAuthenticated: false,
+  user: {},
+  socket: null,
+  async authenticate() {
+    const auth = await fetch("/profile");
+    const result = await auth.json();
+    if (!result.error) {
+      this.isAuthenticated = true;
+      let { username, stats, photo_url, _id, score } = result;
+      this.user = { username, stats, photo_url, _id, score };
+      this.socket = io("http://localhost:3001");
+    }
+  },
+  async signout() {
+    fetch("/logout");
+    this.isAuthenticated = false;
+    this.user = {};
+  }
+};
+export default auth;
