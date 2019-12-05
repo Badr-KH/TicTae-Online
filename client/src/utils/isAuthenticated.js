@@ -10,7 +10,7 @@ const auth = {
       this.isAuthenticated = true;
       let { username, stats, photo_url, _id, score } = result;
       this.user = { username, stats, photo_url, _id, score };
-      this.socket = io("http://localhost:3001");
+      this.socket = io();
     }
   },
   async signout() {
