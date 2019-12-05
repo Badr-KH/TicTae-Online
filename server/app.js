@@ -28,10 +28,9 @@ app.use(express.json());
 app.use(morgan("dev"));
 app.use("/signup", signup);
 app.use("/login", login);
-app.use(secureMiddleware);
-app.use("/profile", profile);
-app.use("/logout", logout);
-app.use("/stats", stats);
+app.use("/profile", secureMiddleware, profile);
+app.use("/logout", secureMiddleware, logout);
+app.use("/stats", secureMiddleware, stats);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
