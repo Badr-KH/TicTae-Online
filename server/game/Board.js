@@ -1,6 +1,5 @@
 const Game = require("../models/game");
 const Stats = require("../models/stats");
-const Profile = require("../models/profile");
 class Board {
   constructor() {
     this.board = Array(9).fill(null);

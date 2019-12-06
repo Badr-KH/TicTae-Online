@@ -11,7 +11,6 @@ class Facebook extends Component {
       })
         .then(result => result.json())
         .then(result => {
-          console.log(res);
           if (result.error) {
             this.props.login(res);
             this.props.page("username");

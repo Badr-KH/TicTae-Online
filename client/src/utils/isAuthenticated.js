@@ -17,6 +17,8 @@ const auth = {
     fetch("/logout");
     this.isAuthenticated = false;
     this.user = {};
+    this.socket.disconnect();
+    this.socket = null;
   }
 };
 export default auth;

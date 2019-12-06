@@ -14,8 +14,6 @@ function Socket(io, sockets, ready) {
         if (sockets[getUser.username]) return socket.disconnect(true);
         socket.identity = getUser;
         sockets[getUser.username] = socket;
-
-        console.log("Hello");
       } catch {
         socket.disconnect(true);
       }
@@ -25,7 +23,6 @@ function Socket(io, sockets, ready) {
     socket.on("ready", () => {
       ready[socket.identity.username] = socket;
       const keys = Object.keys(ready);
-      console.log(socket.id);
       if (keys.length >= 2) findMatch(ready, keys, io);
     });
 
@@ -36,7 +33,6 @@ function Socket(io, sockets, ready) {
       if (ready[socket.identity.username]) {
         delete ready[socket.identity.username];
       }
-      console.log("disconnecting");
       if (socket.roomname) io.to(socket.roomname).emit("premleave");
       delete sockets[socket.identity.username];
     });
@@ -54,7 +50,6 @@ function verifyToken(token) {
  * @param {SocketIO.Server} io
  */
 function findMatch(ready, keys, io) {
-  console.log("Match found");
   const socket1 = ready[keys[0]];
   const socket2 = ready[keys[1]];
   const generateRoomName = socket1.id + socket2.id;
