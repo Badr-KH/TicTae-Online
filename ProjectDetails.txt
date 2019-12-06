@@ -1,7 +1,0 @@
-Create a website.
-
-Tasks.
-
-[] Allow you to play a tic-tae-tow game.
-[] Allows you to connect to a room and play a tic tae toe game with somebody.
-[] 
