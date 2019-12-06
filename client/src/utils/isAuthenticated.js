@@ -10,15 +10,16 @@ const auth = {
       this.isAuthenticated = true;
       let { username, stats, photo_url, _id, score } = result;
       this.user = { username, stats, photo_url, _id, score };
-      this.socket = io();
+      this.socket = io({ transports: ["websocket"] });
     }
   },
   async signout() {
     fetch("/logout");
     this.isAuthenticated = false;
     this.user = {};
-    this.socket.disconnect();
-    this.socket = null;
+    if (this.socket.connected) {
+      this.socket.disconnect();
+    }
   }
 };
 export default auth;

@@ -7,6 +7,7 @@ import LeaderBoard from "./pages/Leaderboard";
 import { BrowserRouter, Switch } from "react-router-dom";
 import auth from "./utils/isAuthenticated";
 import Privacy from "./pages/Privacy";
+import nf404 from "./pages/404";
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -28,6 +29,7 @@ class App extends React.Component {
             <Auth exact path="/history" component={GameHistory} />
             <Auth exact path="/leaderboard" component={LeaderBoard} />
             <Auth exact path="/privacy" component={Privacy} />
+            <Auth exact path="*" component={nf404} />
           </Switch>
         )}
       </BrowserRouter>

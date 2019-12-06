@@ -61,7 +61,7 @@ class Game extends Component {
         color: data.color,
         matching: false
       });
-      setTimeout(() => this.props.history.push("profile"), 2000);
+      setTimeout(() => this.props.history.push("/"), 2000);
     });
   }
   countDown(message) {
