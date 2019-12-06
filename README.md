@@ -13,7 +13,6 @@ First make sure you are in the root directory and then run the following command
 
 ```bash
 npm install
-npm install --prefix client
 ```
 
 ## Post-Installation
@@ -32,15 +31,18 @@ connectionString="Your mongodb's connection string goes here"
 
 ## Run the application
 
-Finally, after installing the application and set up your environment variables. You can run the app by running the following commands.
+Finally, after installing the application and have finished setting up your environment variables. You can run the app by running the following commands.
 
 ```bash
 npm run dev
 ```
 
+Please note that you won't have access to the "login with facebook" functionality.
+If you would like to have that available in your local server. Please send me a message and I would be happy to explain how to set it up.
+
 ## Contributing
 
-Spotted a bug or you have noticed something not working ? Please feel free to create a new issue.
+Spotted a bug or have noticed something not working ? Please feel free to create a new issue.
 Pull requests are accepted.
 
 ## License
