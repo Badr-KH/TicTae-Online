@@ -10,7 +10,10 @@ const auth = {
       this.isAuthenticated = true;
       let { username, stats, photo_url, _id, score } = result;
       this.user = { username, stats, photo_url, _id, score };
-      this.socket = io({ transports: ["websocket"] });
+      this.socket =
+        window.location.hostname === "localhost"
+          ? io("http://localhost:3001", { transports: ["websocket"] })
+          : io({ transports: ["websocket"] });
     }
   },
   async signout() {
