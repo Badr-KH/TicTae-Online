@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "../styles/privacy.css";
 class Privacy extends Component {
   render() {
     return (

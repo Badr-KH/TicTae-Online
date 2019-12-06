@@ -1,0 +1,7 @@
+ul {
+  margin-left: 30px;
+  display: block;
+}
+ul li {
+  list-style-type: circle;
+}

@@ -5,7 +5,7 @@ footer {
   width: 100%;
   background-color: teal;
 }
-ul {
+footer ul {
   margin: 0;
   list-style: none;
   display: flex;
@@ -13,9 +13,12 @@ ul {
   align-items: center;
   height: 100%;
 }
-ul li a {
+footer ul li a {
   color: white;
 }
-ul li a:hover {
+footer ul li a:hover {
   color: red;
+}
+footer ul li {
+  list-style-type: none;
 }

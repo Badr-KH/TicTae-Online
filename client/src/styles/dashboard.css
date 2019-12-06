@@ -49,3 +49,8 @@ table tr * {
 .buttonlink:focus {
   outline: none;
 }
+@media only screen and (max-width: 500px) {
+  .main {
+    width: 95%;
+  }
+}
